@@ -1,0 +1,83 @@
+.options-box{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin: 25px;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 80px;
+}
+.options-first-sting{
+    display: flex;
+    margin-bottom: 40px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.task-name{
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    width: 53%;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 40px;
+    text-indent: 30px;
+}
+.task-description{
+    width: 100%;
+    text-align: center;
+}
+.task-name input{
+    padding: 10px 15px 15px 15px;
+    border: none;
+    box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+    border-radius: 10px;
+    white-space: pre-wrap;
+}
+.task-name input::placeholder{
+    white-space: pre-wrap;
+    text-align: center;
+    text-indent: 0;    
+}
+.task-date {
+    width: auto;
+    text-align: right;
+    margin-right: 30px;
+}
+.task-date input{
+    text-indent: 5px;
+    padding-right: 15px;
+    margin-right: -30px;
+}
+.options-second-string{
+    margin-bottom: 40px;
+}
+.task-description{
+    text-indent: 0;
+}
+.task-description input{
+    height: 120px;
+    padding-bottom: 20px;
+    display: flex;
+}
+
+.options-submit{
+    cursor: pointer;
+    border: 1px solid black;
+    box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+    border-radius: 10px;
+    width: 40%;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 40px;
+    background: rgb(0, 130, 63);
+    background: linear-gradient(90deg, rgba(0, 130, 63, 0.6) 0%, rgba(0, 158, 171, 0.5) 100%);
+}
+
+
+.options-submit:active,
+.options-submit:hover {
+    color: white;
+    box-shadow: 0 0 10px rgb(0, 130, 63)
+}
