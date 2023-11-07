@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Search = (props) => {
-    // отправляем полученный в input запрос в функцию search через props
+const Search = ({search, searchCahange}) => {
     return (
         <div className="search">
-            <input onChange={({ target: { value } }) => props.search(value)} type="text" placeholder='Поиск задания...' />
+            <input onChange={searchCahange} value={search} type="text" placeholder='Поиск задания...' />
         </div>
     )
 }

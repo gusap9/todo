@@ -63,7 +63,7 @@ const TasksOptions = ({ addTask, edit, changedTask, changedTaskSubmited }) => {
     return (
         <div>
             {/* отрисовка формы для редактирования или добавления задачи 
-            отрисовка зависит от значения edit, передаваемого из App.js */}
+            отрисовка зависит от значения =t, передаваемого из App.js */}
             {
                 edit === false ?
                     <form className='options-box' onSubmit={changedSubmit}>

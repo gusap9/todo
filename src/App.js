@@ -32,67 +32,80 @@ function App() {
 
   // функция для нахождения и удаления выбранной задачи также по id
   const removeTask = (id) => {
+    setEdit(true)
     setTodos([...todos.filter(todo => todo.id !== id)])
   }
-  
+
   // хук состояния для понимания того, редактируется ли задание
-  const [edit, setEdit] = useState()
+  const [edit, setEdit] = useState(true)
   // хук состояния, в котором хранится задание, которое хотят редактировать
   const [changedTask, setChangedTask] = useState("")
 
   // функция для поиска выбранной задачи в массиве задач по id, чтобы поменять в найденной задаче значение
   // active на противоположное, чтобы применить стили и обозначить задачу, как редактируемую
   const changeTask = (id) => {
-    setTodos([...todos.map((todo) => todo.id === id ? { ...todo, active: !todo.active } : { ...todo })])
-    // с помощью id находим место задачи в общем массиве
-    let index = todos.map(todo => todo.id).indexOf(id)
-    // передаем информацию о редактируемой задаче в нужные стейты
-    setEdit(todos[index].active) 
-    setChangedTask(todos[index])
+    if (edit) {
+      setTodos([...todos.map((todo) => todo.id === id ? { ...todo, active: !todo.active } : { ...todo })])
+      // с помощью id находим место задачи в общем массиве
+      let index = todos.map(todo => todo.id).indexOf(id)
+      // передаем информацию о редактируемой задаче в нужные стейты
+      setChangedTask(todos[index])
+      setEdit(todos[index].active)
+    } else {
+      setTodos([...todos.map((todo) => ({ ...todo, active: false }))])
+      setEdit(true)
+    }
   }
-
+  function compare(a, b) {
+    var dateA = new Date(a.date);
+    var dateB = new Date(b.date);
+    return dateA - dateB;
+  }
   // получаем измененную задачу из компонента и изменяем редактируемую задачу в общем массиве с задачами 
   const changedTaskSubmited = (changedTaskName, changedTaskDate, changedTaskDescription) => {
     setTodos([...todos.map((todo) => todo.id === changedTask.id ? { ...todo, active: !todo.active, task: changedTaskName, date: changedTaskDate, description: changedTaskDescription } : { ...todo })])
     let index = todos.map(todo => todo.task).indexOf(changedTask.task)
     setEdit(todos[index].active)
   }
-  
+
   // хук состояния для копии массива с задачами, который будет отфильтровываться по запросу
   const [filtered, setFiltered] = useState([]);
   // хук эффекта, который при изменении начального массива с задачами, будет отправлять данные в массив filtered
   useEffect(
     () => {
       setFiltered(todos);
+      todos.sort(compare);
+      setTodos(todos);
+      setSearch("")
     },
     [todos]
-  ); 
-  const search = (value) => {
-    // массив для текущих задач и отфильтрованный
+  );
+  const [search, setSearch] = useState("")
+  const searchCahange = (e) => {
+    setSearch(e.target.value)
     let currentTodos = [],
       newList = [];
-    if (value !== "") {
-      // копируем массив с задачами
+    if (e.target.value !== "") {
       currentTodos = todos;
-      // отфильтровываем в массиве задания исходя из запроса
       newList = currentTodos.filter(todo => {
-        // приравниваем запрос и массив к нижнему регистру, чтобы регистр не влиял на поиск
         const lc = todo.task.toLowerCase();
-        const filter = value.toLowerCase();
+        const filter = e.target.value.toLowerCase();
         return lc.includes(filter);
       });
     } else {
-      // если запроса нет или он стерт, то будут выведены все задачи
       newList = todos;
     }
     // отправляем в стейт полученный массив
     setFiltered(newList);
-  };
-  
+    console.log(e.target.value)
+  }
+  const searchReset = () => {
+    setSearch("")
+  }
   return (
     <div className="App">
       <header className='header'>
-          <h1>Todo list</h1>
+        <h1>Todo list</h1>
       </header>
       <main className='main'>
         <div className='container-main'>
@@ -101,7 +114,7 @@ function App() {
               <h2 className='tasks-list-title'>
                 Список задач
               </h2>
-              <Search {...{ search }} />
+              <Search search={search} searchCahange={searchCahange} />
               {/* отрисовываем все задачи отфильитрованного массива, тк он будет содержать общий массив
               задач, если строка запроса будет пустой */}
               {filtered.map((todo) => {
@@ -116,7 +129,7 @@ function App() {
                   />
                 )
               })}
-              
+
             </div>
           </div>
           <div className='container-second-box'>
