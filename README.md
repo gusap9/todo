@@ -1,6 +1,6 @@
 <h1 align="center"> 
   <a href="https://gusap9.github.io/todo/" target="_blank"> React Todo App </a>
-  <a href="https://gusap9.github.io/online-zoo/pages/main/"> <img alt="readme" src="public/logo.png" height="75px" align="center"> </img></a>
+  <a href="https://gusap9.github.io/todo/"> <img alt="readme" src="public/logo.png" height="75px" align="center"> </img></a>
 </h1>
 
 ## About 
